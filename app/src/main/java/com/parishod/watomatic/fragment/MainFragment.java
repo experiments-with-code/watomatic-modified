@@ -122,7 +122,7 @@ public class MainFragment extends Fragment {
         ImageView imgPlus = view.findViewById(R.id.imgPlus);
 
         autoReplyTextPreviewCard.setOnClickListener(this::openCustomReplyEditorActivity);
-        autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse());
+        autoReplyTextPreview.setText(customRepliesData.getServerUrl());
         // Enable group chat switch only if main switch id ON
         groupReplySwitch.setEnabled(mainAutoReplySwitch.isChecked());
 
@@ -245,7 +245,7 @@ public class MainFragment extends Fragment {
         groupReplySwitch.setChecked(preferencesManager.isGroupReplyEnabled());
 
         // Set user auto reply text
-        autoReplyTextPreview.setText(customRepliesData.getTextToSendOrElse());
+        autoReplyTextPreview.setText(customRepliesData.getServerUrl());
 
         // Update enabled apps list
         if (supportedAppsAdapter != null) {

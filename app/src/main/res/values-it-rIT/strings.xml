@@ -6,7 +6,7 @@
     <string name="privacy_policy_label">Norme sulla privacy</string>
     <string name="service_name">Ascoltatore Notifiche Messaggio In Arrivo</string>
     <string name="mainAutoReplyTextPlaceholder">(Risposta Personalizzata)</string>
-    <string name="auto_reply_default_message">Risposta automatica\n⚠️ Utente non disponibile</string>
+    <string name="default_server_url">Risposta automatica\n⚠️ Utente non disponibile</string>
     <string name="mainAutoReplyLabel">Testo di risposta automatica</string>
     <string name="mainAutoReplySwitchOffLabel">Risposta automatica OFF</string>
     <string name="mainAutoReplySwitchOnLabel">Risposta automatica ON</string>

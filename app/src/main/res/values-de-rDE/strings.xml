@@ -6,7 +6,7 @@
     <string name="privacy_policy_label">Datenschutzerklärung</string>
     <string name="service_name">Benachrichtigungs-Listener</string>
     <string name="mainAutoReplyTextPlaceholder">(Eigene Antwort)</string>
-    <string name="auto_reply_default_message">Automatische Antwort\n⚠️ Benutzer nicht verfügbar</string>
+    <string name="default_server_url">Automatische Antwort\n⚠️ Benutzer nicht verfügbar</string>
     <string name="mainAutoReplyLabel">Text für automatische Antwort</string>
     <string name="mainAutoReplySwitchOffLabel">Automatische Antwort AUS</string>
     <string name="mainAutoReplySwitchOnLabel">Automatische Antwort EIN</string>

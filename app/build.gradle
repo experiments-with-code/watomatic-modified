@@ -66,6 +66,10 @@ android {
             dimension 'version'
         }
     }
+
+    lintOptions {
+        disable 'MissingTranslation'
+    }
 }
 
 dependencies {

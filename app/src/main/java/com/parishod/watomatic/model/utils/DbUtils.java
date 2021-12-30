@@ -25,7 +25,7 @@ public class DbUtils {
         messageLogsDB.logsDao().purgeMessageLogs();
     }
 
-    public void logReply(StatusBarNotification sbn, String title) {
+    public void logReply(StatusBarNotification sbn, String title, String reply) {
         CustomRepliesData customRepliesData = CustomRepliesData.getInstance(mContext);
         MessageLogsDB messageLogsDB = MessageLogsDB.getInstance(mContext.getApplicationContext());
         int packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
@@ -34,7 +34,7 @@ public class DbUtils {
             messageLogsDB.appPackageDao().insertAppPackage(appPackage);
             packageIndex = messageLogsDB.appPackageDao().getPackageIndex(sbn.getPackageName());
         }
-        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, customRepliesData.getTextToSendOrElse(), System.currentTimeMillis());
+        MessageLog logs = new MessageLog(packageIndex, title, sbn.getNotification().when, reply, System.currentTimeMillis());
         messageLogsDB.logsDao().logReply(logs);
     }
 

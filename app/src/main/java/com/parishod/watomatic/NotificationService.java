@@ -28,7 +28,11 @@ public class NotificationService extends NotificationListenerService {
     public void onNotificationPosted(StatusBarNotification sbn) {
         super.onNotificationPosted(sbn);
         if (canReply(sbn) && shouldReply(sbn)) {
-            sendReply(sbn);
+            try {
+                sendReply(sbn);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -75,7 +79,7 @@ public class NotificationService extends NotificationListenerService {
         return START_STICKY;
     }
 
-    private void sendReply(StatusBarNotification sbn) {
+    private void sendReply(StatusBarNotification sbn) throws InterruptedException {
         NotificationWear notificationWear = NotificationUtils.extractWearNotification(sbn);
         // Possibly transient or non-user notification from WhatsApp like
         // "Checking for new messages" or "WhatsApp web is Active"
@@ -90,11 +94,12 @@ public class NotificationService extends NotificationListenerService {
         Intent localIntent = new Intent();
         localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         Bundle localBundle = new Bundle();//notificationWear.bundle;
+        String textToReply = customRepliesData.getTextToSendOrElse(sbn);
         int i = 0;
         for (RemoteInput remoteIn : notificationWear.getRemoteInputs()) {
             remoteInputs[i] = remoteIn;
             // This works. Might need additional parameter to make it for Hangouts? (notification_tag?)
-            localBundle.putCharSequence(remoteInputs[i].getResultKey(), customRepliesData.getTextToSendOrElse());
+            localBundle.putCharSequence(remoteInputs[i].getResultKey(), textToReply);
             i++;
         }
 
@@ -104,7 +109,7 @@ public class NotificationService extends NotificationListenerService {
                 if (dbUtils == null) {
                     dbUtils = new DbUtils(getApplicationContext());
                 }
-                dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn));
+                dbUtils.logReply(sbn, NotificationUtils.getTitle(sbn), textToReply);
                 notificationWear.getPendingIntent().send(this, 0, localIntent);
                 if (PreferencesManager.getPreferencesInstance(this).isShowNotificationEnabled()) {
                     NotificationHelper.getInstance(getApplicationContext()).sendNotification(sbn.getNotification().extras.getString("android.title"), sbn.getNotification().extras.getString("android.text"), sbn.getPackageName());
